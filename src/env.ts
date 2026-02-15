@@ -1,13 +1,6 @@
 import { config as loadEnv } from "dotenv";
 import { z, flattenError } from "zod";
 
-const stringBoolean = z.coerce
-  .string()
-  .transform((val) => {
-    return val === "true";
-  })
-  .default(false);
-
 // Determine application stage
 process.env.APP_STAGE = process.env.APP_STAGE || "dev";
 
@@ -43,8 +36,6 @@ const envSchema = z.object({
   DB_NAME_TEST: z.string().optional(), // only for test env
   DB_PORT: z.coerce.number(),
   DB_URL: z.string().optional(),
-  DB_MIGRATING: stringBoolean,
-  DB_SEEDING: stringBoolean,
   DB_POOL_MIN: z.coerce.number().min(0).default(2),
   DB_POOL_MAX: z.coerce.number().positive().max(20).default(10),
   DB_IDLE_TIMEOUT: z.coerce.number().default(30000),
