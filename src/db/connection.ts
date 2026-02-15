@@ -19,7 +19,7 @@ let client;
 if (isProd()) {
   client = createPool();
 } else {
-  // Use singleton to cache database connections
+  // Caching database connections in development
   // prevents memory leaks from unclosed connections
   client = remember("dbPool", () => createPool());
 }
