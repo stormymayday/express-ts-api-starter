@@ -1,4 +1,3 @@
-import { exists } from "drizzle-orm";
 import { db } from "./connection.js";
 import {} from "./schema.js";
 
