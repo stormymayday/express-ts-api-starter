@@ -14,7 +14,6 @@
     "db:push": "drizzle-kit push",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "tsc && node dist/db/seed.js",
     "test": "APP_STAGE=test vitest run",
     "test:watch": "APP_STAGE=test vitest",
     "test:coverage": "APP_STAGE=test vitest run --coverage"

@@ -4,7 +4,6 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { isTestEnv, isProd, env } from "./env.js";
-import { errorHandler } from "./middleware/errorHandler.js";
 import { rateLimit } from "express-rate-limit";
 
 const limiter = rateLimit({
@@ -17,18 +16,11 @@ const limiter = rateLimit({
 
 const app = express();
 
-if (!isTestEnv()) {
+if (isProd()) {
   app.use(limiter);
 }
 app.use(helmet());
-app.use(
-  cors({
-    origin:
-      env.ALLOWED_ORIGINS === "*"
-        ? true
-        : env.ALLOWED_ORIGINS.split(",").map((o) => o.trim()),
-  }),
-);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -44,8 +36,6 @@ app.get("/health", (req, res) => {
     service: "Express API",
   });
 });
-
-app.use(errorHandler);
 
 export { app };
 export default app;
